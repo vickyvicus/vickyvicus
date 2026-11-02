@@ -51,9 +51,25 @@ The code is private because it carries client data paths and deployment config. 
 
 ---
 
-## At FieldAssist
+## At FieldAssist (Sep 2020 – present)
 
-AI and data engineering for a field-sales platform with 100K+ users and 1.5M+ daily transactions. Shipped an agent-driven integration platform (500+ workflows, 50M+ records a day), a self-service analytics layer over a 2 TB warehouse, and the LLM evaluation harness that gates both.
+**Lead AI Engineer & Engineering Manager.** FieldAssist runs field sales for FMCG brands: 100K+ field users and 1.5M+ transactions a day at a 99% SLA. I own AI and data engineering and lead a team of 8.
+
+**Problems I took on**
+
+- **Each integration cost ₹75K and 15 days from a vendor.** I built an agent-driven platform: users describe the source, destination and transformation in plain language, and an orchestrator agent builds and deploys the workflow. 500+ integrations in the first year, each in minutes. It now runs 500+ workflows at 150+ executions/sec over 50M+ records a day.
+- **Business users waited 3–4 days for a report.** Self-service analytics now lets them ask in plain language over a 2 TB star-schema warehouse. A LangGraph pipeline validates the question, picks the right business view, writes SQL on Trino and formats the answer; retrieval over the schema has guards against made-up columns and joins. Reports take 1–2 hours.
+- **Nobody could say whether the AI was right.** I made evaluation a release gate:
+  - an LLM judge scoring answers on a versioned rubric
+  - a golden question set reviewed by domain experts
+  - retrieval measured on precision, recall and F1
+  - the judge checked against human labels (Cohen's κ)
+  - a regression run before every deploy, with per-call cost and latency tracked
+- **Revenue drops at outlets surfaced only at month-end.** I built anomaly detection on ClickHouse with incremental loads and explicit confidence levels, so thin-data outlets get flagged rather than misjudged.
+- **100+ bulk-upload types were stuck in a legacy ASP.NET monolith.** I led an agent-assisted migration to .NET 9, signed off by a harness that replayed real production jobs through both systems: 100% behavioural parity before cutover.
+- **Scaling the core:** sharding, partitioning, federation and geo-redundant replication on a 2 TB database.
+
+**Before FieldAssist:** early engineer at Workozy / FA-Flo, a startup with a team of 6, where we grew MRR 5× (₹3L → ₹15L) and onboarded Star TV and Pidilite. Before that, Cognizant (Potential Orbit Shifter program, Diamond in the Rough award).
 
 ---
 
